@@ -50,7 +50,7 @@ Upload the folder as-is to any static host (GitHub Pages, Vercel, Netlify, etc.)
 ## Before going live
 
 - **Contact form** — currently a demo. Validation works, but on submit it only simulates sending; no message is delivered. Wire it to a backend or form service (Formspree, Web3Forms, etc.) in the submit handler in `script.js`.
-- **CV button** — the "Download my CV" link in `index.html` has `href="#"`. Point it at your PDF.
+- **CV button** — the "Download my CV" link in `index.html` points at `Utpal_Kant_Sharma_Resume.pdf` in the project root. Replace that file to update the CV.
 - **Project links and images** — the project "View on GitHub" links point to the GitHub profile, not the individual repos, and the project images are placeholders.
 - **Favicon** — `index.html` uses an empty `data:,` icon.
 
