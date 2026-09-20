@@ -244,7 +244,7 @@
               <h3 class="proj-title">SEVA</h3>
             </div>
             <p class="proj-sub">Smart city feedback management system</p>
-            <p class="proj-desc">A full-stack civic engagement platform on Django REST Framework, PostgreSQL and JWT auth. Gemini API and Hugging Face transformers classify incoming complaints automatically — 87% severity and 92% category accuracy, cutting manual triage effort by 65%. PostGIS geo-spatial indexing clusters complaints by location so officials can spot high-priority zones on interactive heat maps.</p>
+            <p class="proj-desc">A full-stack civic engagement platform on Django REST Framework, PostgreSQL and JWT auth. Gemini API and Hugging Face transformers classify incoming complaints automatically — 87% severity and 92% category accuracy, cutting manual triage effort by 65%.</p>
             <div class="chips">
               <span class="chip">Django · DRF</span>
               <span class="chip">PostgreSQL · PostGIS</span>
@@ -254,30 +254,30 @@
             <a class="proj-link" href="https://github.com/utpalks34" target="_blank" rel="noopener">View on GitHub
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
           </div>
-          <div class="ph" role="img" aria-label="SEVA dashboard showing a complaint heat map of the city" data-rv="right" style="--d:120ms">
-            <span>DASHBOARD SCREENSHOT<br>16:10 · lazy-loaded</span>
+          <div class="ph ph--img" data-rv="right" style="--d:120ms">
+            <img src="images/seva.webp" alt="SEVA Smart City Feedback Management System home page with citizen login, complaint registration and staff login" width="1600" height="900" loading="lazy" decoding="async" style="object-position:center top">
           </div>
         </article>
 
         <article class="proj">
           <div class="proj-copy" data-rv="left">
             <div class="proj-head">
-              <span class="proj-icon" aria-hidden="true">R</span>
-              <h3 class="proj-title">Enterprise Agentic RAG</h3>
+              <span class="proj-icon" aria-hidden="true">B</span>
+              <h3 class="proj-title">B2B Sales Intelligence</h3>
             </div>
-            <p class="proj-sub">Guardrailed retrieval pipeline</p>
-            <p class="proj-desc">A LangGraph-orchestrated pipeline of planner, retriever and responder nodes with conditional routing and persistent conversation memory, gated by NeMo Guardrails to block jailbreak and off-topic queries before retrieval ever runs. Qdrant vector search is paired with FlashRank cross-encoder reranking and a Portkey gateway for automatic model failover — containerized with Docker, traced with LangSmith and Logfire, scored by a six-metric RAGAS evaluation suite.</p>
+            <p class="proj-sub">Research · Extraction · Drafting · Self-critique</p>
+            <p class="proj-desc">A LangGraph pipeline with research, structured extraction, drafting and self-critique stages, including a conditional revision loop where an LLM-as-judge critic scores the output and routes back to regeneration until a quality threshold is met. Defensive structured-output parsing handles malformed or non-JSON LLM responses without crashing, and a production issue where a reasoning model silently burned its token budget on chain-of-thought was diagnosed and fixed through the provider's reasoning_effort API parameter.</p>
             <div class="chips">
               <span class="chip">LangGraph</span>
-              <span class="chip">Qdrant</span>
-              <span class="chip">NeMo Guardrails</span>
-              <span class="chip">Docker</span>
+              <span class="chip">LLM-as-judge</span>
+              <span class="chip">Structured output</span>
+              <span class="chip">reasoning_effort</span>
             </div>
             <a class="proj-link" href="https://github.com/utpalks34" target="_blank" rel="noopener">View on GitHub
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
           </div>
-          <div class="ph" role="img" aria-label="Diagram of the LangGraph planner, retriever and responder pipeline" data-rv="right" style="--d:120ms">
-            <span>PIPELINE DIAGRAM<br>16:10 · lazy-loaded</span>
+          <div class="ph ph--img" data-rv="right" style="--d:120ms">
+            <img src="images/b2b-sales.webp" alt="B2B Sales Intelligence Streamlit app showing a completed research run for seismic.com with the approved final outreach email" width="1600" height="900" loading="lazy" decoding="async" style="object-position:left 30%">
           </div>
         </article>
 
@@ -297,9 +297,8 @@
             <a class="proj-link" href="https://github.com/utpalks34" target="_blank" rel="noopener">View on GitHub
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
           </div>
-          <div class="ph ph--fallback" aria-hidden="true" data-rv="right" style="--d:120ms">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--eyebrow)" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 16l4.5-4.5 4 4 3-3L21 17"/><circle cx="9" cy="9" r="1.4"/></svg>
-            <span>image unavailable — fallback</span>
+          <div class="ph ph--img" data-rv="right" style="--d:120ms">
+            <img src="images/multi-agent-researcher.webp" alt="ResearcherAgent multi-agent AI system UI with a research topic input, Run Research Pipeline button and a pipeline showing Search, Reader and Writer agents" width="1600" height="900" loading="lazy" decoding="async" style="object-position:center top">
           </div>
         </article>
 
@@ -310,7 +309,7 @@
               <h3 class="proj-title">TraceGate</h3>
             </div>
             <p class="proj-sub">Self-hosted LLM gateway with observability &amp; evals</p>
-            <p class="proj-desc">A multi-provider LLM gateway with an OpenAI-compatible API and automatic failover across three backends (Ollama, Groq, Gemini). Semantic caching with sentence-transformers cuts redundant calls and reduces latency by 10–40x on cache hits. An async trace-logging pipeline captures latency, token usage and hypothetical cost per request, surfaced in a Streamlit dashboard with regression alerting. An eval harness with three independent scorers — exact-match, semantic similarity and LLM-as-judge — detects prompt and model quality regressions across versions, and helped diagnose disagreement between metrics on real model outputs. Virtual API keys add token-budget enforcement and per-request usage tracking.</p>
+            <p class="proj-desc">A multi-provider LLM gateway with an OpenAI-compatible API and automatic failover across three backends (Ollama, Groq, Gemini). Semantic caching with sentence-transformers cuts redundant calls and reduces latency by 10–40x on cache hits.</p>
             <div class="chips">
               <span class="chip">FastAPI · SQLAlchemy</span>
               <span class="chip">Streamlit</span>
@@ -320,9 +319,8 @@
             <a class="proj-link" href="https://github.com/utpalks34" target="_blank" rel="noopener">View on GitHub
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
           </div>
-          <div class="ph ph--fallback" aria-hidden="true" data-rv="right" style="--d:120ms">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--eyebrow)" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 16l4.5-4.5 4 4 3-3L21 17"/><circle cx="9" cy="9" r="1.4"/></svg>
-            <span>image unavailable — fallback</span>
+          <div class="ph ph--img" data-rv="right" style="--d:120ms">
+            <img src="images/tracegate.webp" alt="TraceGate Streamlit dashboard showing total requests, cache hit rate, latency and cost charts, and detailed trace tables" width="1600" height="900" loading="lazy" decoding="async">
           </div>
         </article>
       </div>

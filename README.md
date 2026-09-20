@@ -10,7 +10,7 @@ A static site: plain HTML, CSS and one small vanilla JS file. No framework, no b
 - **About** — who I am and what I do
 - **Skills** — animated skill bars plus a list of other tools
 - **Experience** — internship, education and certification timeline
-- **Projects** — SEVA, Enterprise Agentic RAG, Multi-Agent Research Assistant
+- **Projects** — SEVA, B2B Sales Intelligence, Multi-Agent Research Assistant
 - **Contact** — validated contact form, social links, and Terms / Privacy pop-ups
 
 ## Features
