@@ -1,58 +1,112 @@
-# Utpal Kant Sharma — Portfolio
+# Utpal Kant Sharma — Next-Gen 3D Portfolio
 
-Personal portfolio for Utpal Kant Sharma, an AI & backend engineer in Guwahati, Assam, building agentic systems (LangGraph pipelines, RAG assistants) and Django/FastAPI services.
+Next-generation, high-animation portfolio for **Utpal Kant Sharma**, an AI & Backend Engineer based in Guwahati, Assam, specializing in agentic systems (LangGraph pipelines, RAG assistants, LLM-as-judge critic loops) and resilient Django/FastAPI services.
 
-A static site: plain HTML, CSS and one small vanilla JS file. No framework, no build step, no dependencies.
+---
 
-## Sections
+## Next-Gen Features & Visual Tech Stack
 
-- **Home** — intro, CV download button and an animated SVG portrait
-- **About** — who I am and what I do
-- **Skills** — animated skill bars plus a list of other tools
-- **Experience** — internship, education and certification timeline
-- **Projects** — SEVA, B2B Sales Intelligence, Multi-Agent Research Assistant
-- **Contact** — validated contact form, social links, and Terms / Privacy pop-ups
+- **3D Neural Core & Agent Constellation (`Three.js`)**: Real-time WebGL particle cosmos with 1,800+ dynamic synaptic lines, mouse-reactive gravity, and real-time morphing between 3 distinct 3D states (*Neural Sphere*, *Torus Pipeline*, *Agent Grid*).
+- **Interactive LangGraph Agent Pipeline Simulator**: Live interactive visualizer tracing multi-stage agent workflows (Query Router → Hybrid Vector Search → LangGraph Drafter → LLM-as-Judge Critic Loop → Gateway Delivery) with real-time latency and token metrics.
+- **Kinetic Typography & Cyber Decryption**: Dynamic alphanumeric glyph scrambling and decryption on scroll and hover.
+- **3D Hologram Cards with Specular Glare**: Realistic 3D perspective transforms (`rotateX`, `rotateY`) responding to cursor coordinates with dynamic spotlight borders.
+- **Developer Command Center (`Ctrl+K` / `⌘K`)**: Instant search and navigation palette with keyboard shortcuts for sections, resume download, socials, and theme toggling.
+- **Interactive Developer CLI Terminal**: Hybrid terminal and contact form supporting CLI commands (`help`, `about`, `skills`, `projects`, `cv`, `clear`, `matrix`, `ping`) and client-side validated message dispatch with confetti celebrations.
+- **Procedural Web Audio FX**: High-tech sci-fi clicks, whooshes, and chimes synthesized natively via the browser's Web Audio API (zero external sound files, muted by default with a glowing header toggle).
+- **Dual Themes & Butter-Smooth Scrolling**: Cyber Dark theme and Crisp Light theme, unified with Lenis smooth momentum scrolling.
 
-## Features
+---
 
-- Light and dark theme: follows the system setting, can be toggled, and is remembered in `localStorage` (set before first paint, so there is no flash)
-- Responsive layout with a CSS-only hamburger menu below 1024 px and safe-area insets on mobile
-- Scroll reveals via a single `IntersectionObserver`, and a scroll progress bar in the header
-- Mouse-only effects (skipped on touch devices): cursor aurora, magnetic buttons, card spotlight, and portrait tilt with glare
-- `prefers-reduced-motion` disables movement
-- Accessibility: skip link, ARIA labels, focus-trapped mobile menu with Escape to close, and live-region form errors and status
-- Contact form with inline validation, a character counter and an auto-growing textarea
+## Tech Stack
 
-## Project structure
+- **Framework**: React 18 + Vite + TypeScript
+- **3D Engine**: Three.js (WebGL)
+- **Styling**: Tailwind CSS + PostCSS + Autoprefixer
+- **Icons**: Lucide React
+- **Smooth Scroll**: Lenis
+- **Effects**: Canvas-Confetti, Web Audio API Synthesizer
 
-| Path | Purpose |
-|---|---|
-| `index.html` | Page markup |
-| `styles.css` | All styles and design tokens |
-| `script.js` | Theme toggle, mobile menu, scroll reveal, pointer effects, contact form |
-| `fonts/` | Self-hosted latin subsets of Manrope and DM Mono (~55 KB total) |
-| `index.pre-motion.html` | Earlier version, before the motion layer was added |
-| `backup/` | Older single-file bundles, kept for reference |
+---
 
-## Run locally
+## Project Structure
 
-Open `index.html` in a browser, or serve the folder:
-
-```bash
-python -m http.server 8000
-# then visit http://localhost:8000
+```
+├── .github/workflows/
+│   └── deploy.yml          # Automated GitHub Pages CI/CD workflow
+├── dist/                   # Production-ready compiled bundle
+├── public/                 # Static assets (images, fonts, resume PDF)
+│   ├── fonts/              # Self-hosted Manrope and DM Mono WOFF2 fonts
+│   ├── images/             # High-res WebP project previews
+│   └── Utpal_Kant_Sharma_Resume.pdf
+├── src/
+│   ├── components/
+│   │   ├── 3d/
+│   │   │   └── NeuralCore.tsx               # Three.js 3D WebGL centerpiece
+│   │   ├── interactive/
+│   │   │   ├── AgentPipelineSimulator.tsx   # LangGraph visualizer
+│   │   │   ├── CommandPalette.tsx           # Ctrl+K HUD
+│   │   │   └── TerminalContact.tsx          # CLI shell & validated form
+│   │   ├── ui/
+│   │   │   ├── DecryptedText.tsx            # Matrix text decryption
+│   │   │   └── HoloCard.tsx                 # 3D tilt perspective card
+│   │   ├── About.tsx                        # Profile narrative & stats
+│   │   ├── Contact.tsx                      # Transmission station
+│   │   ├── Experience.tsx                   # Laser timeline & credentials
+│   │   ├── Footer.tsx                       # Legal popups & copyright
+│   │   ├── Hero.tsx                         # Hero with 3D Core & Memoji
+│   │   ├── Navbar.tsx                       # Glassmorphism header & controls
+│   │   ├── Projects.tsx                     # 3D Project showcases
+│   │   └── Skills.tsx                       # Capability gauges & chips
+│   ├── data/
+│   │   └── portfolioData.ts                 # 100% centralized data store
+│   ├── utils/
+│   │   └── audio.ts                         # Procedural Web Audio synthesizer
+│   ├── App.tsx                              # Main layout & Lenis scroll
+│   ├── index.css                            # Tailwind & font definitions
+│   └── main.tsx                             # Entry point
+├── backup/
+│   └── legacy-static-v1/   # Preserved original static files
+├── index.html              # Vite entry point
+├── package.json            # Scripts & dependencies
+├── tailwind.config.js      # Cyber visual tokens
+├── tsconfig.json           # TypeScript configuration
+└── vite.config.ts          # Vite build setup
 ```
 
-## Deploy
+---
 
-Upload the folder as-is to any static host (GitHub Pages, Vercel, Netlify, etc.).
+## Getting Started
 
-## Before going live
+### 1. Run Locally (Development)
+```bash
+npm run dev
+# Then open http://localhost:5173
+```
 
-- **Contact form** — currently a demo. Validation works, but on submit it only simulates sending; no message is delivered. Wire it to a backend or form service (Formspree, Web3Forms, etc.) in the submit handler in `script.js`.
-- **CV button** — the "Download my CV" link in `index.html` points at `Utpal_Kant_Sharma_Resume.pdf` in the project root. Replace that file to update the CV.
-- **Project links and images** — the project "View on GitHub" links point to the GitHub profile, not the individual repos, and the project images are placeholders.
-- **Favicon** — `index.html` uses an empty `data:,` icon.
+### 2. Build for Production
+```bash
+npm run build
+```
+
+### 3. Preview Production Build
+```bash
+npm run preview
+# Then open http://localhost:4173
+```
+
+### 4. Run Static Server without Node
+```bash
+python -m http.server 8000 --directory dist
+# Then open http://localhost:8000
+```
+
+---
+
+## Deployment
+
+Pushes to the `main` branch automatically build and publish to GitHub Pages using the configured `.github/workflows/deploy.yml` workflow.
+
+---
 
 ## License
 
