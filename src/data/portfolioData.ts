@@ -37,7 +37,7 @@ export const PORTFOLIO_DATA = {
     name: 'Utpal Kant Sharma',
     handle: '[uks]',
     role: 'AI & Backend Engineer',
-    bio: 'An AI and backend engineer building agentic systems — LangGraph pipelines, retrieval-augmented assistants and Django/FastAPI services. Final-year Computer Science student in Guwahati, turning research-grade tooling into products people can actually use.',
+    bio: 'An AI and backend engineer building agentic systems — LangGraph pipelines, retrieval-augmented assistants and Django/FastAPI services. Graduate Computer Science engineer in Guwahati, turning research-grade tooling into products people can actually use.',
     location: 'Guwahati, Assam',
     coordinates: '26.1445° N, 91.7362° E',
     phone: '+91 6000 592 864',
@@ -51,7 +51,7 @@ export const PORTFOLIO_DATA = {
     status: 'AVAILABLE FOR ROLES & CONTRACTS',
   },
   about: {
-    whoIAm: "I'm Utpal Kant Sharma, a final-year B.Tech Computer Science student at The Assam Kaziranga University (CGPA 8.08/10), based in Guwahati, Assam. My work sits where language models meet real backend engineering: agent orchestration, retrieval systems and the APIs and data layers that keep them honest. I learn by shipping — every project below started as a question I couldn't answer from documentation alone.",
+    whoIAm: "I'm Utpal Kant Sharma, a graduate B.Tech Computer Science engineer from The Assam Kaziranga University (CGPA 8.08/10), based in Guwahati, Assam. My work sits where language models meet real backend engineering: agent orchestration, retrieval systems and the APIs and data layers that keep them honest. I learn by shipping — every project below started as a question I couldn't answer from documentation alone.",
     whatIDo: "I design agentic AI systems with LangChain and LangGraph — planner/retriever/responder graphs, guardrails, vector search and evaluation suites — and build the backends around them in Django REST Framework and FastAPI with PostgreSQL, PostGIS and JWT auth. Alongside that: SQL performance work, ML pipelines in Python, and deployment with Docker on AWS.",
     highlights: [
       { label: 'CGPA', value: '8.08 / 10', detail: 'The Assam Kaziranga University' },

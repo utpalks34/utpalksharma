@@ -9,11 +9,13 @@ import { Projects } from './components/Projects';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { CommandPalette } from './components/interactive/CommandPalette';
+import { TerminalBot } from './components/interactive/TerminalBot';
 import { sound } from './utils/audio';
 
 export const App: React.FC = () => {
   const [isDark, setIsDark] = useState(true);
   const [isCommandOpen, setIsCommandOpen] = useState(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(sound.isEnabled());
   const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
   const [cursorVisible, setCursorVisible] = useState(false);
@@ -129,7 +131,7 @@ export const App: React.FC = () => {
 
       {/* Main Content Sections */}
       <main id="content" className="relative z-10">
-        <Hero />
+        <Hero onOpenTerminal={() => setIsTerminalOpen(true)} />
         <About />
         <Skills />
         <Experience />
@@ -149,6 +151,9 @@ export const App: React.FC = () => {
         onToggleSound={toggleSound}
         soundEnabled={soundEnabled}
       />
+
+      {/* Floating Terminal Assistant */}
+      <TerminalBot isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} />
     </div>
   );
 };

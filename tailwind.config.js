@@ -37,6 +37,9 @@ export default {
         'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
         'float-slow': 'floatSlow 7s ease-in-out infinite',
         'radar-sweep': 'radarSweep 3s linear infinite',
+        'scan-sweep': 'scanSweep 1.1s linear infinite',
+        'encrypt-flicker': 'encryptFlicker 1.6s ease-in-out infinite',
+        'glass-sheen': 'glassSheen 7s ease-in-out infinite',
       },
       keyframes: {
         pulseGlow: {
@@ -50,7 +53,23 @@ export default {
         radarSweep: {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
-        }
+        },
+        scanSweep: {
+          '0%': { transform: 'translateX(-130%)' },
+          '100%': { transform: 'translateX(130%)' },
+        },
+        encryptFlicker: {
+          '0%, 100%': { opacity: '0.35' },
+          '45%': { opacity: '0.9' },
+          '55%': { opacity: '0.2' },
+          '80%': { opacity: '0.7' },
+        },
+        glassSheen: {
+          '0%, 100%': { transform: 'translateX(-160%)', opacity: '0' },
+          '8%': { opacity: '0.7' },
+          '35%': { opacity: '0.7' },
+          '45%': { transform: 'translateX(260%)', opacity: '0' },
+        },
       }
     },
   },
