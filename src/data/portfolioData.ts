@@ -188,6 +188,22 @@ export const PORTFOLIO_DATA = {
         { label: 'Caching Engine', value: 'Semantic Vector' },
       ],
     },
+    {
+      id: 'multimodal-rag',
+      title: 'Local Multimodal RAG',
+      iconLetter: 'L',
+      subtitle: 'Docling · Ollama · Qdrant · FastAPI · Streamlit',
+      description: 'A local-only multimodal RAG pipeline over PDFs with tables, charts and image-only slides. Chunk-level retrieval metrics (gold_hit@k, gold_present) exposed that page-level recall of 1.00 was hiding the correct table chunk at rank 11 to 18; table-aware embedding text moved it to rank 2 to 9, lifting gold_hit@10 from 0 to 1.0 (n=3).',
+      chips: ['Docling', 'Ollama', 'Qdrant', 'FastAPI · Streamlit', 'Langfuse'],
+      image: 'images/multimodal-rag.png',
+      githubUrl: 'https://github.com/utpalks34',
+      accentColor: '#b91c1c',
+      metrics: [
+        { label: 'gold_hit@10', value: '0 → 1.0' },
+        { label: 'Gold Chunk Rank', value: '11–18 → 2–9' },
+        { label: 'Deployment', value: '100% Local' },
+      ],
+    },
   ] as Project[],
   legal: {
     terms: 'By using this website you agree to these terms. The content here, including text, design and project descriptions, is owned by Utpal Kant Sharma and may not be copied or reused without permission. This portfolio is provided as is, without warranties of any kind, and I am not liable for any loss arising from its use. Links to third-party sites are for convenience only and I do not control their content. These terms may be updated at any time.',
