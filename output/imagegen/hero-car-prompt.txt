@@ -1,0 +1,11 @@
+Tool: built-in image_gen, transparent_background: true
+Asset: public/images/hero-graphite-coupe.png
+
+Use case: product-mockup
+Asset type: transparent photographic car cutout for an existing black and crimson developer portfolio hero, displayed about 470px wide.
+Primary request: one convincingly REAL graphite metallic sports coupe, photographed rather than illustrated, on a transparent background. A timeless production road car with believable proportions, curved sculpted metal panels, realistic headlights, glass, mirrors, tire tread and machined five-spoke alloy wheels. No futuristic concept styling.
+Composition/framing: landscape canvas 1536x1024. Show the entire car, including both visible wheels and both bumpers, with 10% transparent padding on all sides. Front three-quarter view, nose pointing toward the lower left, passenger side extending to the upper right. Camera at headlight height, natural 70mm automotive photography perspective. Car fills about 85% of canvas width, sitting level on a ground plane.
+Lighting/mood: professional automotive studio photograph. Large soft neutral white overhead reflections reveal the dark graphite body beautifully. Restrained deep crimson rim lighting along the far rear and side to match a matte black and red website. Crisp white LED headlights illuminated. Understated premium lighting, physically plausible reflections.
+Materials/textures: fine metallic charcoal paint, clear glass, black rubber tires, real silver alloy rims, accurate panel gaps.
+Scene/backdrop: genuinely transparent alpha, including space through wheel spokes. Only a delicate short soft contact shadow beneath tires. No environment, no visible studio, no rectangle backdrop.
+Constraints: exactly one complete car, no driver, no people, no extra objects, no pedestal, no text, no logos, no watermark. Do not generate a webpage. Avoid CGI appearance, toy proportions, low-poly surfaces, neon outlines, distorted wheels, excessive red glow or dramatic effects.

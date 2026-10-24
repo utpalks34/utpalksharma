@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import confetti from 'canvas-confetti';
-import { Send, Mail, MapPin, Phone, Github, Linkedin, CheckCircle2 } from 'lucide-react';
+import { Send, Mail, MapPin, Phone, Github, Linkedin } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../../data/portfolioData';
 import { sound } from '../../utils/audio';
 
@@ -14,9 +13,8 @@ export const TerminalContact: React.FC = () => {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSending, setIsSending] = useState(false);
   const [statusMsg, setStatusMsg] = useState('');
-  const [statusType, setStatusType] = useState<'idle' | 'success' | 'error'>('idle');
+  const [statusType, setStatusType] = useState<'idle' | 'error'>('idle');
 
   // Interactive CLI State
   const [cliInput, setCliInput] = useState('');
@@ -52,27 +50,10 @@ export const TerminalContact: React.FC = () => {
       return;
     }
 
-    setIsSending(true);
+    const body = `${formValues.message}\n\nFrom: ${formValues.name} <${formValues.email}>`;
+    window.location.href = `mailto:${PORTFOLIO_DATA.personal.email}?subject=${encodeURIComponent(formValues.subject)}&body=${encodeURIComponent(body)}`;
     setStatusType('idle');
-    setStatusMsg('Dispatching encrypted message…');
-
-    setTimeout(() => {
-      setIsSending(false);
-      setStatusType('success');
-      setStatusMsg("Message dispatched! I'll reply within 48 hours.");
-      sound.playChime();
-
-      // Trigger Crimson Red & Silver Confetti Celebration
-      confetti({
-        particleCount: 85,
-        spread: 75,
-        origin: { y: 0.7 },
-        colors: ['#ff1e42', '#dc2626', '#b91c1c', '#ffffff', '#e11d48'],
-      });
-
-      // Clear fields
-      setFormValues({ name: '', email: '', subject: '', message: '' });
-    }, 1200);
+    setStatusMsg('Continue in your email app to send your message.');
   };
 
   const handleCliSubmit = (e: React.FormEvent) => {
@@ -88,7 +69,7 @@ export const TerminalContact: React.FC = () => {
         res = 'Available commands: about, skills, projects, cv, contact, clear, ping, matrix';
         break;
       case 'about':
-        res = `${PORTFOLIO_DATA.personal.name} — ${PORTFOLIO_DATA.personal.role}. Final-year B.Tech CSE at Kaziranga Univ (CGPA 8.08).`;
+        res = `${PORTFOLIO_DATA.personal.name} — ${PORTFOLIO_DATA.personal.role}. B.Tech CSE graduate from Kaziranga Univ (CGPA 8.08).`;
         break;
       case 'skills':
         res = PORTFOLIO_DATA.skills.map((s) => `${s.name} [${s.level}%]`).join(' | ');
@@ -127,45 +108,45 @@ export const TerminalContact: React.FC = () => {
   };
 
   return (
-    <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      {/* Left Column: Direct Coordinates & Developer CLI Shell */}
-      <div className="lg:col-span-5 space-y-6">
+    <div className="contact-layout w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      {/* Left Column: Let’s connect. & Developer CLI Shell */}
+      <div data-reveal className="lg:col-span-5 space-y-6">
         {/* Contact Info Card */}
-        <div className="p-6 md:p-8 rounded-2xl border border-white/10 bg-[#101014]/90 backdrop-blur-xl shadow-xl">
+        <div className="p-6 md:p-8 rounded-2xl border border-line bg-surface/90 backdrop-blur-xl ">
           <div className="flex items-center gap-3 mb-6">
-            <span className="w-3 h-3 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,1)]" />
-            <h3 className="text-xl font-bold font-mono text-white">Direct Coordinates</h3>
+            <span className="w-3 h-3 rounded-full bg-accent animate-pulse " />
+            <h3 className="text-xl font-semibold font-sans text-ink">Let’s connect.</h3>
           </div>
 
-          <p className="text-sm text-slate-300 leading-relaxed mb-6">
+          <p className="text-sm text-muted leading-relaxed mb-6">
             Always open to discussing agentic AI architectures, backend systems engineering, or full-time opportunities.
           </p>
 
-          <div className="space-y-4 text-xs md:text-sm font-mono text-slate-300">
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-[#08080a] border border-white/5 hover:border-red-500/40 transition-all">
-              <Mail className="w-4 h-4 text-red-400 shrink-0" />
-              <a href={PORTFOLIO_DATA.personal.socials.email} className="truncate hover:text-red-400">
+          <div className="space-y-4 text-xs md:text-sm font-mono text-muted">
+            <div className="flex items-center gap-3 p-3 rounded-lg bg-surface border border-line hover:border-accent/40 transition-all">
+              <Mail className="w-4 h-4 text-accent shrink-0" />
+              <a href={PORTFOLIO_DATA.personal.socials.email} className="truncate hover:text-accent">
                 {PORTFOLIO_DATA.personal.email}
               </a>
             </div>
 
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-[#08080a] border border-white/5 hover:border-red-500/40 transition-all">
-              <Phone className="w-4 h-4 text-red-400 shrink-0" />
+            <div className="flex items-center gap-3 p-3 rounded-lg bg-surface border border-line hover:border-accent/40 transition-all">
+              <Phone className="w-4 h-4 text-accent shrink-0" />
               <span>{PORTFOLIO_DATA.personal.phone}</span>
             </div>
 
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-[#08080a] border border-white/5 hover:border-red-500/40 transition-all">
-              <MapPin className="w-4 h-4 text-rose-400 shrink-0" />
-              <span>{PORTFOLIO_DATA.personal.location} ({PORTFOLIO_DATA.personal.coordinates})</span>
+            <div className="flex items-center gap-3 p-3 rounded-lg bg-surface border border-line hover:border-accent/40 transition-all">
+              <MapPin className="w-4 h-4 text-accent shrink-0" />
+              <span>{PORTFOLIO_DATA.personal.location} </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 mt-6 pt-6 border-t border-white/10">
+          <div className="flex items-center gap-3 mt-6 pt-6 border-t border-line">
             <a
               href={PORTFOLIO_DATA.personal.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 p-2.5 rounded-xl bg-white/5 hover:bg-red-950/40 text-slate-300 hover:text-red-400 border border-white/10 hover:border-red-500/40 text-xs font-mono transition-all"
+              className="flex-1 flex items-center justify-center gap-2 p-2.5 rounded-xl bg-raised hover:bg-accent-soft text-muted hover:text-accent border border-line hover:border-accent/40 text-xs font-mono transition-all"
             >
               <Linkedin className="w-4 h-4" />
               LinkedIn
@@ -174,7 +155,7 @@ export const TerminalContact: React.FC = () => {
               href={PORTFOLIO_DATA.personal.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 text-xs font-mono transition-all"
+              className="flex-1 flex items-center justify-center gap-2 p-2.5 rounded-xl bg-raised hover:bg-raised text-muted hover:text-ink border border-line text-xs font-mono transition-all"
             >
               <Github className="w-4 h-4" />
               GitHub
@@ -182,64 +163,67 @@ export const TerminalContact: React.FC = () => {
           </div>
         </div>
 
-        {/* Developer CLI Terminal Box in Matte Black & Crimson */}
-        <div className="rounded-2xl border border-red-500/40 bg-[#060608] p-4 font-mono text-xs shadow-2xl overflow-hidden shadow-glow-red">
-          <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10 text-slate-400">
+
+        <div className="rounded-2xl border border-accent/40 bg-surface p-4 font-mono text-xs  overflow-hidden ">
+          <div className="flex items-center justify-between pb-3 mb-3 border-b border-line text-muted">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-              <span className="w-2.5 h-2.5 rounded-full bg-slate-600" />
-              <span className="text-[11px] text-slate-300 ml-1">uks-terminal // root</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-accent " />
+              <span className="w-2.5 h-2.5 rounded-full bg-accent" />
+              <span className="w-2.5 h-2.5 rounded-full bg-subtle" />
+              <span className="text-[11px] text-muted ml-1">a terminal for the curious</span>
             </div>
-            <span className="text-[10px] text-red-400 font-bold">TYPE "help"</span>
+            <span className="text-[10px] text-accent font-bold">TYPE "help"</span>
           </div>
 
-          <div className="max-h-48 overflow-y-auto space-y-2 mb-3 pr-1 text-slate-300">
+          <div className="max-h-48 overflow-y-auto space-y-2 mb-3 pr-1 text-muted">
             {cliHistory.map((item, idx) => (
               <div key={idx} className="space-y-0.5">
-                <div className="text-red-400 flex items-center gap-1.5">
-                  <span className="text-slate-500">uks@core:~$</span> {item.cmd}
+                <div className="text-accent flex items-center gap-1.5">
+                  <span className="text-subtle">uks@core:~$</span> {item.cmd}
                 </div>
-                <div className="text-slate-300 pl-4 whitespace-pre-wrap">{item.output}</div>
+                <div className="text-muted pl-4 whitespace-pre-wrap">{item.output}</div>
               </div>
             ))}
           </div>
 
-          <form onSubmit={handleCliSubmit} className="flex items-center gap-2 pt-2 border-t border-white/5">
-            <span className="text-red-500">›</span>
+          <form onSubmit={handleCliSubmit} className="flex items-center gap-2 pt-2 border-t border-line">
+            <span className="text-accent">›</span>
             <input
               type="text"
               value={cliInput}
               onChange={(e) => setCliInput(e.target.value)}
               placeholder="type help, cv, projects..."
-              className="flex-1 bg-transparent text-white focus:outline-none text-xs placeholder-slate-600"
+              aria-label="Terminal command" className="flex-1 bg-transparent text-ink focus:outline-none text-xs placeholder-subtle"
             />
           </form>
         </div>
       </div>
 
-      {/* Right Column: Next-Gen Contact Form in Matte Black */}
-      <div className="lg:col-span-7">
-        <div className="p-6 md:p-8 rounded-2xl border border-white/10 bg-[#101014]/90 backdrop-blur-xl shadow-2xl relative">
-          <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/10">
+
+      <div data-reveal className="lg:col-span-7">
+        <div className="p-6 md:p-8 rounded-2xl border border-line bg-surface/90 backdrop-blur-xl  relative">
+          <div className="flex items-center justify-between pb-4 mb-6 border-b border-line">
             <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)]" />
-              <span className="w-3 h-3 rounded-full bg-amber-500" />
-              <span className="w-3 h-3 rounded-full bg-slate-600" />
-              <span className="text-xs font-mono text-slate-400 ml-2">Encrypted Message Pipeline</span>
+              <Mail className="w-4 h-4 text-accent" />
+              <h3 className="text-lg text-ink">Leave a little hello.</h3>
             </div>
-            <span className="text-xs font-mono text-red-400/80">TLS SECURE</span>
+            <span className="text-[8px] font-mono text-accent/80">EMAIL DRAFT</span>
           </div>
 
+          <p className="text-xs text-muted leading-relaxed mb-6">Tell me what you have in mind. This opens a draft in your email app, ready for you to send.</p>
           <form onSubmit={handleSubmit} noValidate className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Email */}
               <div>
-                <label htmlFor="f-email" className="block text-xs font-mono text-slate-300 mb-1.5">
-                  Email Address <span className="text-red-500">*</span>
+                <label htmlFor="f-email" className="block text-xs font-mono text-muted mb-1.5">
+                  Email Address <span className="text-accent">*</span>
                 </label>
                 <input
                   id="f-email"
+                  autoComplete="email"
+                  required
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "email-error" : undefined}
                   type="email"
                   value={formValues.email}
                   onChange={(e) => {
@@ -247,24 +231,28 @@ export const TerminalContact: React.FC = () => {
                     if (errors.email) setErrors({ ...errors, email: '' });
                   }}
                   placeholder="your.email@example.com"
-                  className={`w-full px-4 py-2.5 rounded-xl bg-[#08080a] border text-xs md:text-sm font-mono text-white placeholder-slate-500 transition-all focus:outline-none ${
+                  className={`w-full px-4 py-2.5 rounded-xl bg-surface border text-xs md:text-sm font-mono text-ink placeholder-subtle transition-all focus:outline-none ${
                     errors.email
-                      ? 'border-red-500 focus:ring-1 focus:ring-red-500'
-                      : 'border-white/10 focus:border-red-500'
+                      ? 'border-danger focus:ring-1 focus:ring-danger'
+                      : 'border-line focus:border-accent'
                   }`}
                 />
                 {errors.email && (
-                  <p className="mt-1 text-[11px] font-mono text-red-400">{errors.email}</p>
+                  <p id="email-error" className="mt-1 text-[11px] font-mono text-danger">{errors.email}</p>
                 )}
               </div>
 
               {/* Name */}
               <div>
-                <label htmlFor="f-name" className="block text-xs font-mono text-slate-300 mb-1.5">
-                  Your Name <span className="text-red-500">*</span>
+                <label htmlFor="f-name" className="block text-xs font-mono text-muted mb-1.5">
+                  Your Name <span className="text-accent">*</span>
                 </label>
                 <input
                   id="f-name"
+                  autoComplete="name"
+                  required
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? "name-error" : undefined}
                   type="text"
                   value={formValues.name}
                   onChange={(e) => {
@@ -272,25 +260,28 @@ export const TerminalContact: React.FC = () => {
                     if (errors.name) setErrors({ ...errors, name: '' });
                   }}
                   placeholder="e.g. Alex Turing"
-                  className={`w-full px-4 py-2.5 rounded-xl bg-[#08080a] border text-xs md:text-sm font-mono text-white placeholder-slate-500 transition-all focus:outline-none ${
+                  className={`w-full px-4 py-2.5 rounded-xl bg-surface border text-xs md:text-sm font-mono text-ink placeholder-subtle transition-all focus:outline-none ${
                     errors.name
-                      ? 'border-red-500 focus:ring-1 focus:ring-red-500'
-                      : 'border-white/10 focus:border-red-500'
+                      ? 'border-danger focus:ring-1 focus:ring-danger'
+                      : 'border-line focus:border-accent'
                   }`}
                 />
                 {errors.name && (
-                  <p className="mt-1 text-[11px] font-mono text-red-400">{errors.name}</p>
+                  <p id="name-error" className="mt-1 text-[11px] font-mono text-danger">{errors.name}</p>
                 )}
               </div>
             </div>
 
             {/* Subject */}
             <div>
-              <label htmlFor="f-subject" className="block text-xs font-mono text-slate-300 mb-1.5">
-                Subject <span className="text-red-500">*</span>
+              <label htmlFor="f-subject" className="block text-xs font-mono text-muted mb-1.5">
+                Subject <span className="text-accent">*</span>
               </label>
               <input
                 id="f-subject"
+                required
+                aria-invalid={!!errors.subject}
+                aria-describedby={errors.subject ? "subject-error" : undefined}
                 type="text"
                 maxLength={80}
                 value={formValues.subject}
@@ -299,29 +290,32 @@ export const TerminalContact: React.FC = () => {
                   if (errors.subject) setErrors({ ...errors, subject: '' });
                 }}
                 placeholder="What is this regarding? (Project, Collaboration, Role)"
-                className={`w-full px-4 py-2.5 rounded-xl bg-[#08080a] border text-xs md:text-sm font-mono text-white placeholder-slate-500 transition-all focus:outline-none ${
+                className={`w-full px-4 py-2.5 rounded-xl bg-surface border text-xs md:text-sm font-mono text-ink placeholder-subtle transition-all focus:outline-none ${
                   errors.subject
-                    ? 'border-red-500 focus:ring-1 focus:ring-red-500'
-                    : 'border-white/10 focus:border-red-500'
+                    ? 'border-danger focus:ring-1 focus:ring-danger'
+                    : 'border-line focus:border-accent'
                 }`}
               />
               {errors.subject && (
-                <p className="mt-1 text-[11px] font-mono text-red-400">{errors.subject}</p>
+                <p id="subject-error" className="mt-1 text-[11px] font-mono text-danger">{errors.subject}</p>
               )}
             </div>
 
             {/* Message */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label htmlFor="f-message" className="block text-xs font-mono text-slate-300">
-                  Message <span className="text-red-500">*</span>
+                <label htmlFor="f-message" className="block text-xs font-mono text-muted">
+                  Message <span className="text-accent">*</span>
                 </label>
-                <span className="text-[11px] font-mono text-slate-500">
+                <span className="text-[11px] font-mono text-subtle">
                   {formValues.message.length} / 1200
                 </span>
               </div>
               <textarea
                 id="f-message"
+                required
+                aria-invalid={!!errors.message}
+                aria-describedby={errors.message ? "message-error" : undefined}
                 rows={5}
                 maxLength={1200}
                 value={formValues.message}
@@ -330,14 +324,14 @@ export const TerminalContact: React.FC = () => {
                   if (errors.message) setErrors({ ...errors, message: '' });
                 }}
                 placeholder="Enter your message or project requirements..."
-                className={`w-full px-4 py-2.5 rounded-xl bg-[#08080a] border text-xs md:text-sm font-mono text-white placeholder-slate-500 transition-all focus:outline-none resize-none ${
+                className={`w-full px-4 py-2.5 rounded-xl bg-surface border text-xs md:text-sm font-mono text-ink placeholder-subtle transition-all focus:outline-none resize-none ${
                   errors.message
-                    ? 'border-red-500 focus:ring-1 focus:ring-red-500'
-                    : 'border-white/10 focus:border-red-500'
+                    ? 'border-danger focus:ring-1 focus:ring-danger'
+                    : 'border-line focus:border-accent'
                 }`}
               />
               {errors.message && (
-                <p className="mt-1 text-[11px] font-mono text-red-400">{errors.message}</p>
+                <p id="message-error" className="mt-1 text-[11px] font-mono text-danger">{errors.message}</p>
               )}
             </div>
 
@@ -345,28 +339,21 @@ export const TerminalContact: React.FC = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
               <button
                 type="submit"
-                disabled={isSending}
-                className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-mono text-xs md:text-sm font-bold bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-600 text-white shadow-glow-red transition-all active:scale-95 disabled:opacity-50"
+                className="contact-submit flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-mono text-xs md:text-sm font-bold bg-accent text-accent-contrast  transition-all active:scale-95 disabled:opacity-50"
               >
-                {isSending ? (
-                  <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  <Send className="w-4 h-4" />
-                )}
-                {isSending ? 'Transmitting…' : 'Send Message'}
+                <Send className="w-4 h-4" />
+                Open email draft
               </button>
 
               {statusMsg && (
                 <div
+                  role="status"
                   className={`text-xs font-mono flex items-center gap-1.5 ${
-                    statusType === 'success'
-                      ? 'text-emerald-400'
-                      : statusType === 'error'
-                      ? 'text-red-400'
-                      : 'text-red-300'
+                    statusType === 'error'
+                      ? 'text-danger'
+                      : 'text-muted'
                   }`}
                 >
-                  {statusType === 'success' && <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />}
                   <span>{statusMsg}</span>
                 </div>
               )}

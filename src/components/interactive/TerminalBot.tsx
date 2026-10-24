@@ -185,23 +185,23 @@ export const TerminalBot: React.FC<TerminalBotProps> = ({ isOpen, onClose }) => 
 
   return (
     <div
-      className={`fixed z-50 left-4 right-4 bottom-4 sm:left-auto sm:right-6 sm:bottom-6 sm:w-[400px] flex flex-col rounded-2xl border border-red-500/40 bg-[#0a0a0d]/95 backdrop-blur-xl shadow-glow-red overflow-hidden transition-all duration-200 ${
+      className={`fixed z-50 left-4 right-4 bottom-4 sm:left-auto sm:right-6 sm:bottom-6 sm:w-[400px] flex flex-col rounded-2xl border border-accent/40 bg-surface/95 backdrop-blur-xl  overflow-hidden transition-all duration-200 ${
         isMinimized ? 'h-14' : 'h-[75vh] sm:h-[560px] max-h-[85vh]'
       }`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-[#121216]/80 shrink-0">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-line bg-surface/80 shrink-0">
         <div className="flex items-center gap-2.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.9)] animate-pulse" />
-          <Terminal className="w-3.5 h-3.5 text-red-400" />
-          <span className="text-xs font-mono font-semibold text-white">guest@uks-portfolio</span>
+          <span className="w-2.5 h-2.5 rounded-full bg-accent  animate-pulse" />
+          <Terminal className="w-3.5 h-3.5 text-accent" />
+          <span className="text-xs font-mono font-semibold text-ink">guest@uks-portfolio</span>
         </div>
         <div className="flex items-center gap-1.5">
           <button
             type="button"
             onClick={() => setIsMinimized((v) => !v)}
             aria-label={isMinimized ? 'Expand terminal' : 'Minimize terminal'}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            className="p-1.5 rounded-lg text-muted hover:text-ink hover:bg-raised transition-colors"
           >
             <Minus className="w-3.5 h-3.5" />
           </button>
@@ -209,7 +209,7 @@ export const TerminalBot: React.FC<TerminalBotProps> = ({ isOpen, onClose }) => 
             type="button"
             onClick={onClose}
             aria-label="Close terminal"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-950/40 transition-colors"
+            className="p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent-soft transition-colors"
           >
             <X className="w-3.5 h-3.5" />
           </button>
@@ -226,33 +226,33 @@ export const TerminalBot: React.FC<TerminalBotProps> = ({ isOpen, onClose }) => 
             {history.map((line, idx) => {
               if (line.type === 'user') {
                 return (
-                  <div key={idx} className="flex items-start gap-1.5 text-slate-300">
-                    <span className="text-red-500 shrink-0">›</span>
+                  <div key={idx} className="flex items-start gap-1.5 text-muted">
+                    <span className="text-accent shrink-0">›</span>
                     <span className="whitespace-pre-wrap break-words">{line.text}</span>
                   </div>
                 );
               }
               if (line.type === 'system') {
                 return (
-                  <div key={idx} className="text-slate-500 whitespace-pre-wrap break-words">
+                  <div key={idx} className="text-subtle whitespace-pre-wrap break-words">
                     {line.text}
                   </div>
                 );
               }
               return (
                 <div key={idx} className="flex items-start gap-1.5">
-                  <span className="text-red-400 shrink-0">bot~$</span>
-                  <span className="text-slate-200 whitespace-pre-wrap break-words">{line.text}</span>
+                  <span className="text-accent shrink-0">bot~$</span>
+                  <span className="text-ink whitespace-pre-wrap break-words">{line.text}</span>
                 </div>
               );
             })}
             {isThinking && (
-              <div className="flex items-center gap-1.5 text-red-400">
+              <div className="flex items-center gap-1.5 text-accent">
                 <span>bot~$</span>
                 <span className="inline-flex gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-bounce [animation-delay:-0.3s]" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-bounce [animation-delay:-0.15s]" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-bounce" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce [animation-delay:-0.3s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce [animation-delay:-0.15s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce" />
                 </span>
               </div>
             )}
@@ -264,7 +264,7 @@ export const TerminalBot: React.FC<TerminalBotProps> = ({ isOpen, onClose }) => 
               href={PORTFOLIO_DATA.personal.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-colors"
+              className="p-1.5 rounded-lg bg-raised hover:bg-raised border border-line text-muted hover:text-ink transition-colors"
               aria-label="GitHub"
             >
               <Github className="w-3.5 h-3.5" />
@@ -273,27 +273,27 @@ export const TerminalBot: React.FC<TerminalBotProps> = ({ isOpen, onClose }) => 
               href={PORTFOLIO_DATA.personal.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-red-400 transition-colors"
+              className="p-1.5 rounded-lg bg-raised hover:bg-raised border border-line text-muted hover:text-accent transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-3.5 h-3.5" />
             </a>
-            <span className="text-[10px] font-mono text-slate-500 ml-auto">ESC to close</span>
+            <span className="text-[10px] font-mono text-subtle ml-auto">ESC to close</span>
           </div>
 
           {/* Input */}
           <form
             onSubmit={handleSubmit}
-            className="flex items-center gap-2 px-4 py-3 border-t border-white/10 bg-[#08080a] shrink-0"
+            className="flex items-center gap-2 px-4 py-3 border-t border-line bg-surface shrink-0"
           >
-            <span className="text-red-500 font-mono text-sm">›</span>
+            <span className="text-accent font-mono text-sm">›</span>
             <input
               ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="ask about skills, projects, contact..."
-              className="flex-1 bg-transparent text-xs md:text-sm font-mono text-white focus:outline-none placeholder-slate-600"
+              className="flex-1 bg-transparent text-xs md:text-sm font-mono text-ink focus:outline-none placeholder-subtle"
               autoComplete="off"
               spellCheck={false}
             />

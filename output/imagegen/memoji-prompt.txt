@@ -1,0 +1,16 @@
+Built-in image_gen tool
+
+Initial prompt:
+Use case: stylized-concept
+Asset type: transparent portrait asset for the left side of a premium software engineer portfolio.
+Primary request: Create an exceptionally polished 3D Memoji-style bust of an adult Indian male software engineer, late twenties to early thirties. Warm medium-brown skin, handsome mature face with defined jaw, natural dark brown eyes of moderate size, strong carefully shaped eyebrows, detailed swept-back black hair with sculpted strands and a subtle fade at temples, neatly trimmed short beard and mustache. Small friendly confident closed-mouth smile. Wearing a refined dark charcoal crewneck shirt, visible shoulders and upper chest. Relaxed professional personality.
+Style/medium: premium stylized 3D character, high-end animated film craftsmanship, believable facial anatomy, softly rounded but sophisticated, expertly sculpted continuous forms. Beautiful subsurface skin shading, fine hair details, soft fabric texture.
+Composition/framing: single centered bust, facing mostly forward with a very slight three-quarter turn toward the viewer's right, head upright, camera at eye level. Entire hair, ears, shoulders and rounded bottom of bust visible with generous transparent margin. Bust fills about 88 percent of a square canvas.
+Lighting/mood: large soft warm studio key light from upper left, subtle sage-green rim light, attractive gentle shadows and depth. Calm welcoming confident expression.
+Scene/backdrop: genuinely transparent alpha background, isolated character only.
+Constraints: no text, no logos, no hands, no props, no pedestal, no background, no shadow plane. Avoid baby proportions, oversized eyeballs, toy-block geometry, plastic helmet hair, creepy realism, childish grin or teeth. Adult and professionally art-directed.
+
+Final refinement prompt:
+Use case: style-transfer. Edit the reference portrait into a clearly stylized, premium Apple Memoji / Pixar-inspired 3D avatar. The current image looks too photographic: remove ALL skin pores, individual beard stubble and photographic detail. Use beautifully sculpted smooth warm-brown skin, simplified sculpted black hair with clean sweeping locks, simplified neat short beard as a smooth dark shape, clean expressive moderately enlarged brown eyes, friendly subtle closed-mouth smile, mature defined cheeks and jaw. Keep this adult Indian man's identity cues, dark charcoal crewneck, bust framing, lighting direction and transparent background. Make the head 20 percent larger relative to shoulders for Memoji proportions while keeping adult face. It should unambiguously look like an exceptionally well-made animated 3D emoji character, not a photograph, not a basic model made of spheres. Softer rounded contours, beautiful studio lighting, polished clean continuous sculpting. Entire hair and shoulders visible, square canvas, isolated bust only, no hands, no props, no text, no pedestal. Preserve transparent alpha background.
+
+Final asset: public/images/hero-memoji.png

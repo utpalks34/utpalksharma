@@ -104,23 +104,21 @@ export const AgentPipelineSimulator: React.FC = () => {
   };
 
   return (
-    <div className="w-full rounded-2xl border border-white/10 bg-[#101014]/90 p-6 md:p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
-      {/* Background Matte Red Mesh */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-rose-950/20 rounded-full blur-3xl pointer-events-none" />
+    <div className="w-full rounded-2xl border border-line bg-surface/90 p-6 md:p-8 backdrop-blur-xl  relative overflow-hidden">
+
 
       {/* Header & Controls */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-white/10">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-line">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,1)]" />
-            <h3 className="text-lg md:text-xl font-bold font-mono tracking-tight text-white flex items-center gap-2">
-              LangGraph Agent Pipeline Visualizer
-              <Sparkles className="w-4 h-4 text-red-400" />
+            <span className="inline-block w-2.5 h-2.5 rounded-full bg-accent animate-pulse " />
+            <h3 className="text-lg md:text-xl font-semibold font-sans tracking-tight text-ink flex items-center gap-2">
+              Inside an agent workflow
+              <Sparkles className="w-4 h-4 text-accent" />
             </h3>
           </div>
-          <p className="text-xs md:text-sm text-slate-400">
-            Interactive live trace of an agentic RAG workflow with self-critique loops and vector retrieval.
+          <p className="text-xs md:text-sm text-muted">
+            An interactive simulation of retrieval, synthesis, and review. Timings and outputs are illustrative.
           </p>
         </div>
 
@@ -128,7 +126,7 @@ export const AgentPipelineSimulator: React.FC = () => {
           <button
             onClick={runSimulation}
             disabled={isRunning}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs md:text-sm font-mono font-semibold bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-600 text-white font-bold transition-all shadow-glow-red active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs md:text-sm font-mono font-semibold bg-accent text-accent-contrast font-bold transition-all  active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Play className={`w-4 h-4 fill-current ${isRunning ? 'animate-spin' : ''}`} />
             {isRunning ? 'Processing Pipeline…' : 'Run Agent Simulation'}
@@ -138,7 +136,7 @@ export const AgentPipelineSimulator: React.FC = () => {
             onClick={resetSimulation}
             disabled={isRunning && currentStep < 4}
             title="Reset Pipeline"
-            className="p-2 rounded-xl text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all active:scale-95"
+            className="p-2 rounded-xl text-muted hover:text-ink bg-raised hover:bg-raised border border-line transition-all active:scale-95"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
@@ -146,8 +144,8 @@ export const AgentPipelineSimulator: React.FC = () => {
       </div>
 
       {/* Query Bar */}
-      <div className="mb-8 p-3 rounded-xl bg-[#08080a] border border-white/10 flex items-center gap-3">
-        <span className="text-xs font-mono text-red-400 font-bold px-2 py-1 rounded bg-red-950/80 border border-red-800/40">
+      <div className="mb-8 p-3 rounded-xl bg-surface border border-line flex items-center gap-3">
+        <span className="text-xs font-mono text-accent font-bold px-2 py-1 rounded bg-accent-soft border border-accent/40">
           PROMPT
         </span>
         <input
@@ -155,7 +153,8 @@ export const AgentPipelineSimulator: React.FC = () => {
           value={queryInput}
           onChange={(e) => setQueryInput(e.target.value)}
           disabled={isRunning}
-          className="flex-1 bg-transparent text-xs md:text-sm font-mono text-slate-200 focus:outline-none placeholder-slate-500"
+          className="flex-1 bg-transparent text-xs md:text-sm font-mono text-ink focus:outline-none placeholder-subtle"
+          aria-label="Pipeline task"
           placeholder="Enter a task to run through the agent graph..."
         />
       </div>
@@ -171,22 +170,22 @@ export const AgentPipelineSimulator: React.FC = () => {
               key={stage.id}
               className={`relative rounded-xl p-4 transition-all duration-300 border ${
                 isActive
-                  ? 'border-red-500 bg-red-950/40 shadow-glow-red scale-[1.02]'
+                  ? 'border-accent bg-accent-soft  scale-[1.02]'
                   : isSuccess
-                  ? 'border-red-900/60 bg-red-950/20'
-                  : 'border-white/5 bg-[#08080a]/60 opacity-70'
+                  ? 'border-accent/60 bg-accent-soft'
+                  : 'border-line bg-surface/60 opacity-70'
               }`}
             >
               {/* Connector dot */}
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-mono text-slate-400">STAGE 0{idx + 1}</span>
+                <span className="text-[10px] font-mono text-muted">STAGE 0{idx + 1}</span>
                 <span
                   className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
                     isActive
-                      ? 'bg-red-500/20 text-red-300 font-bold animate-pulse'
+                      ? 'bg-accent-soft text-accent font-bold animate-pulse'
                       : isSuccess
-                      ? 'bg-red-900/40 text-red-300'
-                      : 'bg-white/5 text-slate-500'
+                      ? 'bg-accent-soft text-accent'
+                      : 'bg-raised text-subtle'
                   }`}
                 >
                   {stage.latency}
@@ -194,24 +193,24 @@ export const AgentPipelineSimulator: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-2 mb-1">
-                {idx === 0 && <Cpu className="w-4 h-4 text-red-400" />}
-                {idx === 1 && <Database className="w-4 h-4 text-rose-400" />}
-                {idx === 2 && <Sparkles className="w-4 h-4 text-red-400" />}
-                {idx === 3 && <ShieldCheck className="w-4 h-4 text-amber-400" />}
-                {idx === 4 && <CheckCircle2 className="w-4 h-4 text-red-400" />}
-                <h4 className="text-xs md:text-sm font-bold text-white font-mono">{stage.name}</h4>
+                {idx === 0 && <Cpu className="w-4 h-4 text-accent" />}
+                {idx === 1 && <Database className="w-4 h-4 text-accent" />}
+                {idx === 2 && <Sparkles className="w-4 h-4 text-accent" />}
+                {idx === 3 && <ShieldCheck className="w-4 h-4 text-accent" />}
+                {idx === 4 && <CheckCircle2 className="w-4 h-4 text-accent" />}
+                <h4 className="text-xs md:text-sm font-bold text-ink font-mono">{stage.name}</h4>
               </div>
 
-              <p className="text-[11px] text-slate-400 mb-2 leading-tight">{stage.role}</p>
+              <p className="text-[11px] text-muted mb-2 leading-tight">{stage.role}</p>
 
-              <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[10px] font-mono">
-                <span className="text-slate-400">{stage.tech}</span>
-                {isSuccess && <span className="text-red-400">✓ OK</span>}
-                {isActive && <span className="text-red-400 animate-spin">◐</span>}
+              <div className="pt-2 border-t border-line flex items-center justify-between text-[10px] font-mono">
+                <span className="text-muted">{stage.tech}</span>
+                {isSuccess && <span className="text-accent">✓ OK</span>}
+                {isActive && <span className="text-accent animate-spin">◐</span>}
               </div>
 
               {stage.outputPreview && (isActive || isSuccess) && (
-                <div className="mt-2 text-[10px] font-mono text-slate-300 bg-[#08080a] p-1.5 rounded border border-white/5 truncate">
+                <div className="mt-2 text-[10px] font-mono text-muted bg-surface p-1.5 rounded border border-line truncate">
                   {stage.outputPreview}
                 </div>
               )}
@@ -221,18 +220,18 @@ export const AgentPipelineSimulator: React.FC = () => {
       </div>
 
       {/* Live Trace Logs */}
-      <div className="rounded-xl bg-[#08080a] p-4 border border-white/10 font-mono text-xs text-slate-300">
-        <div className="flex items-center justify-between mb-2 text-slate-500 text-[11px] pb-2 border-b border-white/5">
+      <div className="rounded-xl bg-surface p-4 border border-line font-mono text-xs text-muted">
+        <div className="flex items-center justify-between mb-2 text-subtle text-[11px] pb-2 border-b border-line">
           <span className="flex items-center gap-2">
-            <Terminal className="w-3.5 h-3.5 text-red-400" />
-            LIVE TELEMETRY TRACE
+            <Terminal className="w-3.5 h-3.5 text-accent" />
+            SIMULATED WORKFLOW TRACE
           </span>
-          <span className="text-red-400/80">EST. SAVED TOKEN OVERHEAD: ~68%</span>
+          <span className="text-accent/80">DEMO / LANGGRAPH</span>
         </div>
         <div className="space-y-1 max-h-32 overflow-y-auto pr-2">
           {logs.map((log, i) => (
-            <div key={i} className="text-slate-300 leading-relaxed font-mono flex items-start gap-2">
-              <span className="text-red-500 select-none">›</span>
+            <div key={i} className="text-muted leading-relaxed font-mono flex items-start gap-2">
+              <span className="text-accent select-none">›</span>
               <span>{log}</span>
             </div>
           ))}

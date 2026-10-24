@@ -1,0 +1,82 @@
+.hero-car {
+  --car-x: 0px;
+  --car-y: 0px;
+}
+
+.hero-car__visual {
+  overflow: hidden;
+}
+
+.hero-car__ground {
+  position: absolute;
+  left: 9%;
+  right: 7%;
+  top: 65%;
+  height: 8%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.7), transparent 70%);
+  filter: blur(8px);
+}
+
+.hero-car__accent {
+  position: absolute;
+  inset: 27% 3% 19%;
+  background: radial-gradient(ellipse at 65% 65%, rgba(185, 28, 28, 0.19), transparent 65%);
+  transition: opacity 500ms ease;
+}
+
+.hero-car__photo-position {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate3d(var(--car-x), var(--car-y), 0);
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-car__motion {
+  width: 100%;
+  animation: hero-car-glide 7s ease-in-out infinite;
+}
+
+.hero-car__photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 16px rgba(0, 0, 0, 0.35));
+}
+
+.hero-car[data-drive-mode='boost'] .hero-car__motion {
+  animation-name: hero-car-boost;
+}
+
+.hero-car[data-drive-mode='boost'] .hero-car__accent {
+  background: radial-gradient(ellipse at 65% 65%, rgba(220, 38, 38, 0.3), transparent 65%);
+}
+
+.hero-car[data-lights='off'] .hero-car__accent {
+  opacity: 0;
+}
+
+@keyframes hero-car-glide {
+  0%, 100% { transform: translate3d(0, 2px, 0); }
+  50% { transform: translate3d(-3px, -2px, 0); }
+}
+
+@keyframes hero-car-boost {
+  0%, 100% { transform: translate3d(-5px, 1px, 0) scale(1.025); }
+  50% { transform: translate3d(-8px, -2px, 0) scale(1.025); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-car__photo-position {
+    transform: none;
+    transition: none;
+  }
+
+  .hero-car__motion {
+    animation: none;
+  }
+}

@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Utpal Kant Sharma — AI &amp; Backend Engineer</title>
   <meta name="description" content="Utpal Kant Sharma — AI and backend engineer building agentic systems: LangGraph pipelines, retrieval-augmented assistants and Django/FastAPI services. Based in Guwahati, Assam.">
-  <meta name="theme-color" content="#07080c" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
-  <link rel="icon" href="data:,">
+  <meta name="theme-color" content="#f7f3eb">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23722f42'/%3E%3Ctext x='16' y='47' fill='%23fff6e8' font-family='Arial' font-weight='700' font-size='45'%3Eu.%3C/text%3E%3C/svg%3E">
 
   <!-- Prevent theme flicker -->
   <script>
     (function () {
       try {
         var t = localStorage.getItem('uks-theme');
-        if (t === 'light') {
+        if (t !== 'dark') {
           document.documentElement.classList.remove('dark');
           document.documentElement.classList.add('light');
         } else {
@@ -27,7 +26,7 @@
 
   <link rel="preload" href="./fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
 </head>
-<body class="bg-[#07080c] text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950">
+<body>
   <div id="root"></div>
   <script type="module" src="./src/main.tsx"></script>
 </body>

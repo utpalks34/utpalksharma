@@ -1,276 +1,101 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, Sun, Moon, Command, Menu, X, Github, Linkedin, Mail, Terminal } from 'lucide-react';
-import { PORTFOLIO_DATA } from '../data/portfolioData';
-import { sound } from '../utils/audio';
-import { EncryptedText } from './ui/EncryptedText';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { ArrowUpRight, Command, Menu, Moon, Pause, Play, Sun, X } from 'lucide-react';
 
 interface NavbarProps {
   isDark: boolean;
   onToggleTheme: () => void;
   onOpenCommand: () => void;
-  soundEnabled: boolean;
-  onToggleSound: () => void;
+  motionEnabled: boolean;
+  reducedMotion: boolean;
+  onToggleMotion: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({
-  isDark,
-  onToggleTheme,
-  onOpenCommand,
-  soundEnabled,
-  onToggleSound,
-}) => {
+const links = ['Projects', 'About', 'Skills', 'Experience', 'Contact'];
+
+export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme, onOpenCommand, motionEnabled, reducedMotion, onToggleMotion }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
-  const [hoverLogo, setHoverLogo] = useState(false);
-  const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
-  const navListRef = useRef<HTMLElement>(null);
-  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+  const [previewSection, setPreviewSection] = useState<string | null>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const indicatorRef = useRef<HTMLSpanElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    const indicator = indicatorRef.current;
+    if (!nav || !indicator) return;
+    const update = () => {
+      const link = nav.querySelector<HTMLElement>(`[href="#${previewSection || activeSection}"]`);
+      indicator.style.opacity = link ? '1' : '0';
+      if (!link) return;
+      indicator.style.width = `${link.offsetWidth}px`;
+      indicator.style.transform = `translateX(${link.offsetLeft}px)`;
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(nav);
+    return () => observer.disconnect();
+  }, [activeSection, previewSection]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'experience', 'projects', 'contact'];
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 200 && rect.bottom >= 200) {
-            setActiveSection(id);
-            break;
-          }
-        }
-      }
+    const update = () => {
+      const active = ['home', ...links.map((link) => link.toLowerCase())].reverse().find((id) => {
+        const section = document.getElementById(id);
+        return section && section.getBoundingClientRect().top <= 180;
+      });
+      setActiveSection(active || 'home');
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+    return () => window.removeEventListener('scroll', update);
   }, []);
 
   useEffect(() => {
-    const updateIndicator = () => {
-      const container = navListRef.current;
-      const activeEl = linkRefs.current[activeSection];
-      if (container && activeEl) {
-        const containerRect = container.getBoundingClientRect();
-        const activeRect = activeEl.getBoundingClientRect();
-        setIndicator({ left: activeRect.left - containerRect.left, width: activeRect.width });
-      } else {
-        setIndicator(null);
+    if (!menuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
       }
     };
-
-    updateIndicator();
-    window.addEventListener('resize', updateIndicator);
-    return () => window.removeEventListener('resize', updateIndicator);
-  }, [activeSection]);
-
-  const navItems = [
-    { label: 'About', href: '#about', id: 'about' },
-    { label: 'Skills', href: '#skills', id: 'skills' },
-    { label: 'Experience', href: '#experience', id: 'experience' },
-    { label: 'Projects', href: '#projects', id: 'projects' },
-    { label: 'Contact', href: '#contact', id: 'contact' },
-  ];
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    sound.playClick();
-    setMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+    const desktop = window.matchMedia('(min-width: 1100px)');
+    const closeOnDesktop = () => { if (desktop.matches) setMenuOpen(false); };
+    window.addEventListener('keydown', closeOnEscape);
+    desktop.addEventListener('change', closeOnDesktop);
+    return () => {
+      window.removeEventListener('keydown', closeOnEscape);
+      desktop.removeEventListener('change', closeOnDesktop);
+    };
+  }, [menuOpen]);
 
   return (
-    <>
-      <header className="fixed top-4 left-0 right-0 z-40 px-4">
-        <div className="max-w-4xl mx-auto relative">
-          {/* Ambient pulsing glow matching hero theme */}
-          <div className="absolute -inset-x-6 -inset-y-4 bg-red-600/10 rounded-full blur-2xl -z-10 animate-pulse-glow pointer-events-none" />
-
-          <div className="relative flex items-center gap-2 p-2 rounded-full bg-[#0d0d10]/70 border border-white/15 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_8px_32px_rgba(0,0,0,0.55)] overflow-hidden isolate">
-            {/* Wet-glass top gloss highlight */}
-            <span
-              aria-hidden="true"
-              className="absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/25 via-white/5 to-transparent pointer-events-none -z-10"
-            />
-            {/* Wet-glass inner edge specular */}
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 rounded-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),inset_0_-10px_18px_rgba(0,0,0,0.4)] pointer-events-none -z-10"
-            />
-            {/* Slow drifting light sheen, like a reflection sliding across wet glass */}
-            <span
-              aria-hidden="true"
-              className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-transparent via-white/25 to-transparent -skew-x-[20deg] animate-glass-sheen pointer-events-none -z-10"
-            />
-
-            {/* Logo Badge */}
-            <a
-              href="#home"
-              onClick={(e) => handleNavClick(e, '#home')}
-              onMouseEnter={() => setHoverLogo(true)}
-              onMouseLeave={() => setHoverLogo(false)}
-              className="group relative shrink-0 w-10 h-10 rounded-full bg-white flex items-center justify-center text-black hover:scale-105 transition-transform isolate overflow-hidden"
-              title="Home"
-            >
-              <span
-                aria-hidden="true"
-                className={`absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-red-500/30 to-transparent -skew-x-12 pointer-events-none transition-opacity duration-200 ${hoverLogo ? 'opacity-100 animate-scan-sweep' : 'opacity-0'}`}
-              />
-              <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_6px_rgba(239,68,68,1)] animate-pulse" />
-              <Terminal className="w-4 h-4 relative z-10" strokeWidth={2.5} />
-            </a>
-
-            {/* Desktop Navigation Links */}
-            <nav ref={navListRef} className="hidden md:flex items-center gap-1 flex-1 justify-center relative">
-              {indicator && (
-                <span
-                  aria-hidden="true"
-                  className="absolute top-0 h-full rounded-full bg-red-500/10 border border-red-500/40 shadow-glow-red transition-all duration-300 ease-out pointer-events-none overflow-hidden"
-                  style={{ left: indicator.left, width: indicator.width }}
-                >
-                  <span className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-red-400/40 to-transparent -skew-x-12 animate-scan-sweep" />
-                  <span className="absolute top-0.5 left-0.5 w-1.5 h-1.5 border-t border-l border-red-400/70" />
-                  <span className="absolute bottom-0.5 right-0.5 w-1.5 h-1.5 border-b border-r border-red-400/70" />
-                </span>
-              )}
-              {navItems.map((item) => {
-                const isActive = activeSection === item.id;
-                return (
-                  <a
-                    key={item.id}
-                    ref={(el) => {
-                      linkRefs.current[item.id] = el;
-                    }}
-                    href={item.href}
-                    onClick={(e) => handleNavClick(e, item.href)}
-                    onMouseEnter={() => setHoveredNav(item.id)}
-                    onMouseLeave={() => setHoveredNav(null)}
-                    className={`relative z-10 px-4 py-2 text-sm font-mono font-medium rounded-full transition-colors duration-200 ${
-                      isActive ? 'text-red-400' : 'text-slate-300 hover:text-white'
-                    }`}
-                  >
-                    <EncryptedText text={item.label} active={hoveredNav === item.id} />
-                  </a>
-                );
-              })}
-            </nav>
-
-            {/* Utility Controls */}
-            <div className="hidden md:flex items-center gap-1 pr-1">
-              <button
-                onClick={() => {
-                  sound.playClick();
-                  onOpenCommand();
-                }}
-                title="Open Command Palette (Ctrl+K / ⌘K)"
-                className="p-2 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-all"
-              >
-                <Command className="w-4 h-4" />
-              </button>
-              <button
-                onClick={onToggleSound}
-                title={soundEnabled ? 'Disable Audio FX' : 'Enable Audio FX'}
-                className={`p-2 rounded-full transition-all ${
-                  soundEnabled ? 'text-red-400 hover:bg-white/10' : 'text-slate-400 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-              </button>
-              <button
-                onClick={() => {
-                  sound.playClick();
-                  onToggleTheme();
-                }}
-                title={isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
-                className="p-2 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-all"
-              >
-                {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              </button>
-            </div>
-
-            {/* Social Links */}
-            <div className="hidden sm:flex shrink-0 items-center gap-2">
-              <a
-                href={PORTFOLIO_DATA.personal.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="GitHub"
-                className="p-2.5 rounded-full bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 transition-all"
-              >
-                <Github className="w-4 h-4" />
-              </a>
-              <a
-                href={PORTFOLIO_DATA.personal.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="LinkedIn"
-                className="p-2.5 rounded-full bg-white/5 text-slate-300 hover:text-red-400 hover:bg-white/10 transition-all"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-            </div>
-
-            {/* Mobile Hamburger Menu Button */}
-            <button
-              onClick={() => {
-                sound.playClick();
-                setMobileMenuOpen(!mobileMenuOpen);
-              }}
-              className="md:hidden ml-auto p-2.5 rounded-full bg-white/10 text-white"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
+    <header className="site-header">
+      <div className="page-width navbar-bar">
+        <a href="#home" aria-label="Utpal Kant Sharma, home" className="brand" onClick={() => setMenuOpen(false)}>
+          <span className="brand-mark">u<span>.</span></span>
+          <span className="hidden sm:block">Utpal Sharma<span className="brand-caption">AI & Backend Engineer</span></span>
+        </a>
+        <nav ref={navRef} aria-label="Main navigation" className="navbar-links" onPointerLeave={() => setPreviewSection(null)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPreviewSection(null); }}>
+          <span ref={indicatorRef} className="nav-indicator" aria-hidden="true" />
+          {links.map((link) => (
+            <a key={link} href={`#${link.toLowerCase()}`} onPointerEnter={() => setPreviewSection(link.toLowerCase())} onFocus={() => setPreviewSection(link.toLowerCase())} className={`nav-link ${activeSection === link.toLowerCase() ? 'is-active' : ''}`} aria-current={activeSection === link.toLowerCase() ? 'location' : undefined}>{link}</a>
+          ))}
+        </nav>
+        <div className="navbar-actions">
+          <button className="icon-button motion-toggle" aria-label={reducedMotion ? 'Motion disabled by system preference' : motionEnabled ? 'Pause site animations' : 'Play site animations'} title={reducedMotion ? 'Reduced motion is enabled on your device' : motionEnabled ? 'Pause site animations' : 'Play site animations'} disabled={reducedMotion} onClick={onToggleMotion}>{motionEnabled ? <Pause size={16} /> : <Play size={16} />}</button>
+          <button className="icon-button utility-control" aria-label="Open command palette" title="Commands (⌘K / Ctrl+K)" onClick={onOpenCommand}><Command size={17} /></button>
+          <button className="icon-button" aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'} onClick={onToggleTheme}>{isDark ? <Sun size={18} /> : <Moon size={18} />}</button>
+          <a href="#contact" className="button button-small button-primary desktop-contact">Let’s talk <ArrowUpRight size={15} /></a>
+          <button ref={menuButtonRef} className="icon-button menu-control" aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={21} /> : <Menu size={21} />}</button>
         </div>
-      </header>
-
-      {/* Mobile Drawer Overlay */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-30 pt-24 px-6 bg-[#08080a]/95 backdrop-blur-2xl md:hidden animate-in fade-in duration-200">
-          <nav className="flex flex-col gap-4 py-8 border-b border-white/10">
-            {navItems.map((item) => (
-              <a
-                key={item.id}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className="text-lg font-mono font-medium text-slate-200 hover:text-red-400 py-2 border-b border-white/5 flex items-center justify-between"
-              >
-                <span>{item.label}</span>
-                <span className="text-xs text-slate-500 font-mono">0{navItems.indexOf(item) + 1}</span>
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center justify-center gap-6 py-8">
-            <a
-              href={PORTFOLIO_DATA.personal.socials.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-white/5 text-slate-300 hover:text-white"
-            >
-              <Github className="w-5 h-5" />
-            </a>
-            <a
-              href={PORTFOLIO_DATA.personal.socials.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-white/5 text-slate-300 hover:text-red-400"
-            >
-              <Linkedin className="w-5 h-5" />
-            </a>
-            <a
-              href={PORTFOLIO_DATA.personal.socials.email}
-              className="p-3 rounded-full bg-white/5 text-slate-300 hover:text-red-400"
-            >
-              <Mail className="w-5 h-5" />
-            </a>
-          </div>
-        </div>
+      </div>
+      {menuOpen && (
+        <nav id="mobile-navigation" aria-label="Mobile navigation" className="page-width mobile-navigation">
+          <p className="mobile-menu-caption">A little look around</p>
+          {links.map((link, index) => <a key={link} href={`#${link.toLowerCase()}`} aria-current={activeSection === link.toLowerCase() ? 'location' : undefined} onClick={() => setMenuOpen(false)}><span><small>0{index + 1}</small>{link}</span><ArrowUpRight size={18} /></a>)}
+          <button onClick={() => { setMenuOpen(false); onOpenCommand(); }}>Quick commands <Command size={16} /></button>
+        </nav>
       )}
-    </>
+    </header>
   );
 };
